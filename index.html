@@ -9,13 +9,15 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="./src/css/style.css">
     <title>MovieDB</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-warning">
+        <a class="navbar-brand" href="#">FilmDB</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,23 +28,18 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
+                        Category
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Movies</a>
+                        <a class="dropdown-item" href="#">TV Show</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link disabled" href="#">Genre</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -52,19 +49,20 @@
         </div>
     </nav>
 
-    <div class="container">
+    <!-- Carousel -->
+    <div class="container mt-3">
         <div class="row-mt-3">
             <div class="col">
                 <h2 style="text-align: center;">Comingsoon</h2>
             </div>
         </div>
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner">
+            <div class="carousel-inner border border-warning rounded">
                 <div class="carousel-item active">
                     <img class="d-block w-100" src="./src/img/movie-1-min.jpg" alt="First slide">
                     <div class="carousel-caption d-none d-md-block">
@@ -98,18 +96,79 @@
         </div>
     </div>
 
-    <hr>
-
-    <div class="container">
+    <!-- Card Now Playing -->
+    <div id="now-playing" class="container mt-5">
+        <h3>Now Playing</h3>
+        <hr class="bg-color-light">
         <div class="row">
             <div class="col-md-2">
                 <div class="movie-list">
-                    <div class="card md-3">
+                    <div class="card md-3 bg-warning">
                         <img class="card-img-top" src="./src/img/movie-4-min.jpg" alt="Card image cap">
                         <div class="card-body">
-                            <a href="#" class="card-link">See Details</a>
+                            <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See
+                                Details</a>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Pupolar -->
+    <div id="now-playing" class="container mt-5">
+        <h3>Popular</h3>
+        <hr class="bg-color-light">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="movie-list">
+                    <div class="card md-3 bg-warning">
+                        <img class="card-img-top" src="./src/img/movie-4-min.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See
+                                Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card Best Rating-->
+    <div id="now-playing" class="container mt-5">
+        <h3>Best Rating</h3>
+        <hr class="bg-color-light">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="movie-list">
+                    <div class="card md-3 bg-warning">
+                        <img class="card-img-top" src="./src/img/movie-4-min.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See
+                                Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Movie title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Description</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">More</button>
                 </div>
             </div>
         </div>
