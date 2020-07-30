@@ -17,7 +17,7 @@ $(document).ready(function () {
                             <img class="card-img-top" src="https://image.tmdb.org/t/p/w185` + data.poster_path + `" alt="Card image cap">
                             <div class="card-body">
                                 <div class="col">
-                                    <p class="text-center"><a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">see details</a></p>
+                                    <p class="text-center"><a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See details</a></p>
                                 </div> 
                             </div>
                         </div>
