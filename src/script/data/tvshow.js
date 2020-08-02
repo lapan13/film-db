@@ -12,14 +12,11 @@ $(document).ready(function () {
             let tvshow = result.results;
             $.each(tvshow, function (i, data) {
                 $('#movie-list').append(`
-                    <div class="col-md-2 mb-3">
-                        <div class="card md-3 bg-warning">
-                            <img class="card-img-top" src="https://image.tmdb.org/t/p/w185` + data.poster_path + `" alt="Card image cap">
-                            <div class="card-body">
-                                <div class="col">
-                                    <p class="text-center"><a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See details</a></p>
-                                </div> 
-                            </div>
+                    <div class="col-md-2 mb-4 ">
+                        <div class="card bg-warning">
+                            <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <img class="card-img-top" src="https://image.tmdb.org/t/p/w185` + data.poster_path + `" alt="` + data.name + `">
+                            </a>
                         </div>
                     </div>
                 `)
@@ -48,28 +45,24 @@ $('#search-button').on('click', function () {
                 $.each(tvshow, function (i, data) {
                     if (data.poster_path != null) {
                         $('#movie-list').append(`
-                            <div class="col-md-3">
-                                <div class="card md-3 bg-warning">
-                                    <img class="card-img-top" src="https://image.tmdb.org/t/p/w185` + data.poster_path + `" alt="Card image cap">
-                                    <div class="card-body">
-                                        <p>` + data.name + `</p>
-                                        <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See Details</a>
-                                    </div>
+                            <div class="col-md-2 mb-4 ">
+                                <div class="card bg-warning">
+                                    <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                        <img class="card-img-top" src="https://image.tmdb.org/t/p/w185` + data.poster_path + `" alt="` + data.name + `">
+                                    </a>
                                 </div>
-                            </div>      
+                            </div>   
                         `)
                     } else {
                         $.each(tvshow, function (i, data) {
                             $('#movie-list').append(`
-                                <div class="col-md-3">
-                                    <div class="card md-3 bg-warning">
-                                        <img class="card-img-top" src="../src/img/no-poster.jpg" alt="Card image cap">
-                                        <div class="card-body">
-                                            <p>` + data.name + `</p>
-                                            <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See Details</a>
-                                        </div>
+                                <div class="col-md-2 mb-4 ">
+                                    <div class="card bg-warning">
+                                        <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                            <img class="card-img-top" src="../src/img/no-poster.jpg" alt="` + data.name + `">
+                                        </a>
                                     </div>
-                                </div>      
+                                </div>
                             `)
                         })
                     }
