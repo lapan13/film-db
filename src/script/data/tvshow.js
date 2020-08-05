@@ -1,5 +1,5 @@
 //on load page
-$(document).ready(function () {
+$(document).ready(() => {
     $.ajax({
         type: 'get',
         url: 'https://api.themoviedb.org/3/discover/tv',
@@ -9,9 +9,9 @@ $(document).ready(function () {
             'sort_by': 'popularity.desc',
             'page': 1
         },
-        success: function (result) {
+        success: (result) => {
             let tvshow = result.results;
-            $.each(tvshow, function (i, data) {
+            $.each(tvshow, (i, data) => {
                 //Array of Year
                 let arrYear = [];
                 arrYear.push(data.first_air_date);
@@ -40,7 +40,7 @@ $('#movie-list').on('click', '.see-detail', function () {
             'api_key': 'ae0bdd8f96c5b4e84b43e17aa8a01dca',
             'tv_id': $(this).data('id')
         },
-        success: function (detail) {
+        success: (detail) => {
 
             //Array of Year
             let arrYear = [];
@@ -49,7 +49,7 @@ $('#movie-list').on('click', '.see-detail', function () {
 
             // Array of Genre
             let arrGenre = [];
-            $.each(detail.genres, function (i, genre) {
+            $.each(detail.genres, (i, genre) => {
                 arrGenre.push(" " + genre.name);
                 $('.modal-body').html(`
                     <div class="container-fluid">
@@ -108,7 +108,7 @@ function searchMovie() {
             'api_key': 'ae0bdd8f96c5b4e84b43e17aa8a01dca',
             'query': $('#search-input').val()
         },
-        success: function (result) {
+        success: (result) => {
             if (result.total_results === 0) {
                 $('#movie-list').html(`
                 <div class="col">
@@ -116,7 +116,7 @@ function searchMovie() {
                 </div>`);
             } else {
                 let tvshow = result.results;
-                $.each(tvshow, function (i, data) {
+                $.each(tvshow, (i, data) => {
                     if (data.poster_path != null) {
                         $('#movie-list').append(`
                             <div class="col-md-2 mb-4 ">
@@ -138,12 +138,12 @@ function searchMovie() {
 }
 
 //when search button clicked
-$('#search-button').on('click', function () {
+$('#search-button').click(() => {
     searchMovie();
 });
 
 //search with key Enter
-$('#search-input').bind('keypress', function (e) {
+$('#search-input').keypress((e) => {
     if (e.code == 'Enter') {
         searchMovie();
         e.preventDefault();
