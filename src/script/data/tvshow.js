@@ -95,8 +95,11 @@ $('#movie-list').on('click', '.see-detail', function () {
     });
 });
 
-//when search button clicked
-$('#search-button').on('click', function () {
+//func searching
+function searchMovie() {
+    //empty Page
+    $('#movie-list').empty();
+
     $.ajax({
         type: 'get',
         url: 'https://api.themoviedb.org/3/search/tv',
@@ -118,27 +121,32 @@ $('#search-button').on('click', function () {
                         $('#movie-list').append(`
                             <div class="col-md-2 mb-4 ">
                                 <div class="card bg-warning">
-                                    <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                    <a href="#" class="card-link see-detail" data-toggle="modal" data-target=".bd-example-modal-lg" data-id="` + data.id + `">
                                         <img class="card-img-top img-fluid" src="https://image.tmdb.org/t/p/w185` + data.poster_path + `" alt="` + data.name + `">
                                     </a>
                                 </div>
                             </div>   
                         `)
-                    } else {
-                        $.each(tvshow, function (i, data) {
-                            $('#movie-list').append(`
-                                <div class="col-md-2 mb-4 ">
-                                    <div class="card bg-warning">
-                                        <a href="#" class="card-link see-detail" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                            <img class="card-img-top img-fluid" src="../src/img/no-poster.jpg" alt="` + data.name + `">
-                                        </a>
-                                    </div>
-                                </div>
-                            `)
-                        })
                     }
                 });
             }
         }
     });
+
+    //empty Search Input
+    $('#search-input').val('');
+}
+
+//when search button clicked
+$('#search-button').on('click', function () {
+    searchMovie();
+});
+
+//search with key Enter
+$('#search-input').bind('keypress', function (e) {
+    if (e.code == 'Enter') {
+        searchMovie();
+        e.preventDefault();
+        return false;
+    }
 });
