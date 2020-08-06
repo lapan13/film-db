@@ -1,0 +1,13 @@
+* {
+    color: white;
+}
+
+body {
+    background-color: black;
+}
+
+hr {
+    background-color: rgb(255, 204, 0);
+    height: 1px;
+    border: 0;
+}
