@@ -241,6 +241,11 @@ $('#upcoming-list').on('click', '.see-detail', function () {
                                 </div>
                             </div>
                         </div>
+                        <div class="container-fluid">
+                            <div class="row float-right">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     `);
             });
         }
@@ -304,6 +309,11 @@ $('#now-playing').on('click', '.see-detail', function () {
                                         <dd class="col-sm-9">` + detail.original_language + `.</dd>
                                 </dl>
                             </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row float-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 `);
@@ -371,6 +381,11 @@ $('#popular').on('click', '.see-detail', function () {
                             </div>
                         </div>
                     </div>
+                    <div class="container-fluid">
+                        <div class="row float-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 `);
             });
         }
@@ -436,6 +451,81 @@ $('#top-rated').on('click', '.see-detail', function () {
                             </div>
                         </div>
                     </div>
+                    <div class="container-fluid">
+                        <div class="row float-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+    });
+});
+$('#movie-list').on('click', '.see-detail', function () {
+    $.ajax({
+        type: 'get',
+        url: 'https://api.themoviedb.org/3/movie/' + $(this).data('id'),
+        datatype: 'json',
+        data: {
+            'api_key': 'ae0bdd8f96c5b4e84b43e17aa8a01dca',
+            'movie_id': $(this).data('id')
+        },
+        success: (detail) => {
+
+            //Array of Year
+            let arrYear = [];
+            arrYear.push(detail.release_date);
+            let year = arrYear.toString().substr(0, 4);
+
+            // Array of Country
+            let arrCountry = [];
+            $.each(detail.production_countries, (i, country) => {
+                arrCountry.push(" " + country.name);
+                return;
+            });
+
+            // Array of Genre
+            let arrGenre = [];
+            $.each(detail.genres, (i, genre) => {
+                arrGenre.push(" " + genre.name);
+                $('.modal-body').html(`
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h5 class="modal-title" id="exampleModalLabel">` + detail.title + ` (` + year + `)</h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="https://image.tmdb.org/t/p/w185` + detail.poster_path + `" >
+                            </div>
+                            <div class="col-md-8">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Overview</dt>
+                                        <dd class="col-sm-9">` + detail.overview + `.</dd>
+                                    <dt class="col-sm-3">Genre</dt>
+                                        <dd class="col-sm-9">` + arrGenre + `.</dd>
+                                    <dt class="col-sm-3">Rating</dt>
+                                        <dd class="col-sm-9">` + detail.vote_average + `.</dd>
+                                    <dt class="col-sm-3">Popularity</dt>
+                                        <dd class="col-sm-9">` + detail.popularity + `.</dd>
+                                </dl>
+                                <hr>
+                                <dl class="row">   
+                                    <dt class="col-sm-3">Country</dt>
+                                        <dd class="col-sm-9">` + arrCountry + `.</dd>
+                                    <dt class="col-sm-3">Language</dt>
+                                        <dd class="col-sm-9">` + detail.original_language + `.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row float-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 `);
             });
         }
@@ -454,7 +544,7 @@ function searchMovie() {
     $('#movie-list').empty();
     $.ajax({
         type: 'get',
-        url: 'https://api.themoviedb.org/3/search/multi',
+        url: 'https://api.themoviedb.org/3/search/movie',
         datatype: 'json',
         data: {
             'api_key': 'ae0bdd8f96c5b4e84b43e17aa8a01dca',

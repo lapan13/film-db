@@ -89,6 +89,11 @@ $('#movie-list').on('click', '.see-detail', function () {
                             </div>
                         </div>
                     </div>
+                    <div class="container-fluid">
+                        <div class="row float-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 `);
             });
         }
