@@ -11,7 +11,7 @@ function upcomingMovies() {
 
             //Array upcoming Movies
             let arrUpcoming = [];
-            arrUpcoming.push((result.results).splice(0, 3));
+            arrUpcoming.push((result.results).splice(0, 5));
             $.each(arrUpcoming, (i, data) => {
                 $('#upcoming-list').append(`
                     <div class="col">
@@ -20,6 +20,8 @@ function upcomingMovies() {
                                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
                             </ol>
                             <div class="carousel-inner border border-warning rounded">
                                 <div class="carousel-item active">
@@ -46,6 +48,24 @@ function upcomingMovies() {
                                         <div class="carousel-caption d-none d-md-block">
                                             <h5>` + data[2].title + ` (` + data[2].release_date + `)</h5>
                                             <p>` + data[2].overview + `</p>
+                                        </div>                                          
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="#" class="card-link see-detail" data-toggle="modal" data-target=".bd-example-modal-lg" data-id="` + data[3].id + `">
+                                        <img class="d-block w-100" src="https://image.tmdb.org/t/p/original` + data[3].backdrop_path + `" alt="Third slide">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>` + data[3].title + ` (` + data[3].release_date + `)</h5>
+                                            <p>` + data[3].overview + `</p>
+                                        </div>                                          
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="#" class="card-link see-detail" data-toggle="modal" data-target=".bd-example-modal-lg" data-id="` + data[4].id + `">
+                                        <img class="d-block w-100" src="https://image.tmdb.org/t/p/original` + data[4].backdrop_path + `" alt="Third slide">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>` + data[4].title + ` (` + data[4].release_date + `)</h5>
+                                            <p>` + data[4].overview + `</p>
                                         </div>                                          
                                     </a>
                                 </div>
@@ -138,7 +158,7 @@ function topRated() {
             let arrPop = [];
             arrPop.push((result.results).splice(0, 6));
             $.each(arrPop[0], (i, data) => {
-                $('#top_rated').append(`
+                $('#top-rated').append(`
                     <div class="col-md-2 mb-4">
                         <div class="card bg-warning ">
                             <a href="#" class="card-link see-detail" data-toggle="modal" data-target=".bd-example-modal-lg" data-id="` + data.id + `">
@@ -154,20 +174,79 @@ function topRated() {
 
 //on load page
 $(document).ready(() => {
-
     upcomingMovies();
     nowPlaying();
     popularMovies();
     topRated();
-    getModal();
-
-
-
-
 });
 
-function getModal() {
-    $(this).data('id');
+//see detail modal
+$('#upcoming-list').on('click', '.see-detail', function () {
+    $.ajax({
+        type: 'get',
+        url: 'https://api.themoviedb.org/3/movie/' + $(this).data('id'),
+        datatype: 'json',
+        data: {
+            'api_key': 'ae0bdd8f96c5b4e84b43e17aa8a01dca',
+            'movie_id': $(this).data('id')
+        },
+        success: (detail) => {
+
+            //Array of Year
+            let arrYear = [];
+            arrYear.push(detail.release_date);
+            let year = arrYear.toString().substr(0, 4);
+
+            // Array of Country
+            let arrCountry = [];
+            $.each(detail.production_countries, (i, country) => {
+                arrCountry.push(" " + country.name);
+                return;
+            });
+
+            // Array of Genre
+            let arrGenre = [];
+            $.each(detail.genres, (i, genre) => {
+                arrGenre.push(" " + genre.name);
+                $('.modal-body').html(`
+                        <div class="container-fluid">
+                            <div class="row">
+                                <h5 class="modal-title" id="exampleModalLabel">` + detail.title + ` (` + year + `)</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="https://image.tmdb.org/t/p/w185` + detail.poster_path + `" >
+                                </div>
+                                <div class="col-md-8">
+                                    <dl class="row">
+                                        <dt class="col-sm-3">Overview</dt>
+                                            <dd class="col-sm-9">` + detail.overview + `.</dd>
+                                        <dt class="col-sm-3">Genre</dt>
+                                            <dd class="col-sm-9">` + arrGenre + `.</dd>
+                                        <dt class="col-sm-3">Rating</dt>
+                                            <dd class="col-sm-9">` + detail.vote_average + `.</dd>
+                                        <dt class="col-sm-3">Popularity</dt>
+                                            <dd class="col-sm-9">` + detail.popularity + `.</dd>
+                                    </dl>
+                                    <hr>
+                                    <dl class="row">   
+                                        <dt class="col-sm-3">Country</dt>
+                                            <dd class="col-sm-9">` + arrCountry + `.</dd>
+                                        <dt class="col-sm-3">Language</dt>
+                                            <dd class="col-sm-9">` + detail.original_language + `.</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+            });
+        }
+    });
+});
+$('#now-playing').on('click', '.see-detail', function () {
     $.ajax({
         type: 'get',
         url: 'https://api.themoviedb.org/3/movie/' + $(this).data('id'),
@@ -231,23 +310,148 @@ function getModal() {
             });
         }
     });
-}
-
-$('#upcoming-list').on('click', '.see-detail', function () {
-    getModal();
 });
+$('#popular').on('click', '.see-detail', function () {
+    $.ajax({
+        type: 'get',
+        url: 'https://api.themoviedb.org/3/movie/' + $(this).data('id'),
+        datatype: 'json',
+        data: {
+            'api_key': 'ae0bdd8f96c5b4e84b43e17aa8a01dca',
+            'movie_id': $(this).data('id')
+        },
+        success: (detail) => {
 
-//see detail modal
-$('#movie-list').on('click', '.see-detail', function () {
-    getModal();
+            //Array of Year
+            let arrYear = [];
+            arrYear.push(detail.release_date);
+            let year = arrYear.toString().substr(0, 4);
+
+            // Array of Country
+            let arrCountry = [];
+            $.each(detail.production_countries, (i, country) => {
+                arrCountry.push(" " + country.name);
+                return;
+            });
+
+            // Array of Genre
+            let arrGenre = [];
+            $.each(detail.genres, (i, genre) => {
+                arrGenre.push(" " + genre.name);
+                $('.modal-body').html(`
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h5 class="modal-title" id="exampleModalLabel">` + detail.title + ` (` + year + `)</h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="https://image.tmdb.org/t/p/w185` + detail.poster_path + `" >
+                            </div>
+                            <div class="col-md-8">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Overview</dt>
+                                        <dd class="col-sm-9">` + detail.overview + `.</dd>
+                                    <dt class="col-sm-3">Genre</dt>
+                                        <dd class="col-sm-9">` + arrGenre + `.</dd>
+                                    <dt class="col-sm-3">Rating</dt>
+                                        <dd class="col-sm-9">` + detail.vote_average + `.</dd>
+                                    <dt class="col-sm-3">Popularity</dt>
+                                        <dd class="col-sm-9">` + detail.popularity + `.</dd>
+                                </dl>
+                                <hr>
+                                <dl class="row">   
+                                    <dt class="col-sm-3">Country</dt>
+                                        <dd class="col-sm-9">` + arrCountry + `.</dd>
+                                    <dt class="col-sm-3">Language</dt>
+                                        <dd class="col-sm-9">` + detail.original_language + `.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+    });
+});
+$('#top-rated').on('click', '.see-detail', function () {
+    $.ajax({
+        type: 'get',
+        url: 'https://api.themoviedb.org/3/movie/' + $(this).data('id'),
+        datatype: 'json',
+        data: {
+            'api_key': 'ae0bdd8f96c5b4e84b43e17aa8a01dca',
+            'movie_id': $(this).data('id')
+        },
+        success: (detail) => {
+
+            //Array of Year
+            let arrYear = [];
+            arrYear.push(detail.release_date);
+            let year = arrYear.toString().substr(0, 4);
+
+            // Array of Country
+            let arrCountry = [];
+            $.each(detail.production_countries, (i, country) => {
+                arrCountry.push(" " + country.name);
+                return;
+            });
+
+            // Array of Genre
+            let arrGenre = [];
+            $.each(detail.genres, (i, genre) => {
+                arrGenre.push(" " + genre.name);
+                $('.modal-body').html(`
+                    <div class="container-fluid">
+                        <div class="row">
+                            <h5 class="modal-title" id="exampleModalLabel">` + detail.title + ` (` + year + `)</h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <img src="https://image.tmdb.org/t/p/w185` + detail.poster_path + `" >
+                            </div>
+                            <div class="col-md-8">
+                                <dl class="row">
+                                    <dt class="col-sm-3">Overview</dt>
+                                        <dd class="col-sm-9">` + detail.overview + `.</dd>
+                                    <dt class="col-sm-3">Genre</dt>
+                                        <dd class="col-sm-9">` + arrGenre + `.</dd>
+                                    <dt class="col-sm-3">Rating</dt>
+                                        <dd class="col-sm-9">` + detail.vote_average + `.</dd>
+                                    <dt class="col-sm-3">Popularity</dt>
+                                        <dd class="col-sm-9">` + detail.popularity + `.</dd>
+                                </dl>
+                                <hr>
+                                <dl class="row">   
+                                    <dt class="col-sm-3">Country</dt>
+                                        <dd class="col-sm-9">` + arrCountry + `.</dd>
+                                    <dt class="col-sm-3">Language</dt>
+                                        <dd class="col-sm-9">` + detail.original_language + `.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        }
+    });
 });
 
 
 //func searching
 function searchMovie() {
     //empty Page
+    $('.a1').empty();
+    $('#upcoming-list').empty();
+    $('#now-playing').empty();
+    $('#popular').empty();
+    $('#top-rated').empty();
     $('#movie-list').empty();
-
     $.ajax({
         type: 'get',
         url: 'https://api.themoviedb.org/3/search/multi',
@@ -264,10 +468,11 @@ function searchMovie() {
                 <h1 class="text-center">Movie not Found</h1>
                 </div>`);
             } else {
+                $('#result').html('Result :')
                 let movie = result.results;
                 $.each(movie, (i, data) => {
                     if (data.poster_path != null) {
-                        $('#movie-list').append(`
+                        $('#movie-list').append(`                            
                             <div class="col-md-2 mb-4 ">
                                 <div class="card bg-warning">
                                     <a href="#" class="card-link see-detail" data-toggle="modal" data-target=".bd-example-modal-lg" data-id="` + data.id + `">
