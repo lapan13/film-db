@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="./src/style/style.css">
+    <link rel="stylesheet" href="./src/styles/style.css">
     <title>FilmDB</title>
 </head>
 
@@ -17,7 +17,7 @@
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg sticky-top navbar-light bg-warning">
-            <a class="navbar-brand" href="#">FilmDB</a>
+            <a class="navbar-brand" href="./index.html">FilmDB</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -25,9 +25,6 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,11 +47,24 @@
         </nav>
 
         <!-- Carousel -->
-        <div class="container mt-3">
-            <div class="row-mt-3">
+        <div class="container">
+            <div class="row mt-3">
                 <div class="col">
                     <h2 style="text-align: center;">Comingsoon</h2>
                 </div>
+            </div>
+            <hr>
+            <div class="row" id="upcoming-list">
+            </div>
+        </div>
+
+
+        <div class="container mt-3">
+            <div class="row-mt-3" id="upcoming-list">
+                <!-- <div class="col">
+                    <h2 style="text-align: center;">Comingsoon</h2>
+                </div>
+                <hr>
                 <div class="col">
                     <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
                         <ol class="carousel-indicators">
@@ -96,67 +106,45 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </header>
 
     <main>
         <!-- Card Now Playing -->
-        <div id="now-playing" class="container mt-5">
-            <h3>Now Playing</h3>
-            <hr class="bg-color-light">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="movie-list">
-                        <div class="card md-3 bg-warning">
-                            <img class="card-img-top" src="./src/img/movie-4-min.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <p>Title</p>
-                                <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See
-                                    Details</a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col">
+                    <h3>Now Playing</h3>
                 </div>
+            </div>
+            <hr>
+            <div class="row" id="now-playing">
             </div>
         </div>
 
-        <!-- Card Pupolar -->
-        <div id="now-playing" class="container mt-5">
-            <h3>Popular</h3>
-            <hr class="bg-color-light">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="movie-list">
-                        <div class="card md-3 bg-warning">
-                            <img class="card-img-top" src="./src/img/movie-4-min.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See
-                                    Details</a>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Card Popular -->
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col">
+                    <h3>Popular</h3>
                 </div>
+            </div>
+            <hr>
+            <div class="row" id="popular">
             </div>
         </div>
 
         <!-- Card Best Rating-->
-        <div id="now-playing" class="container mt-5">
-            <h3>Best Rating</h3>
-            <hr class="bg-color-light">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="movie-list">
-                        <div class="card md-3 bg-warning">
-                            <img class="card-img-top" src="./src/img/movie-4-min.jpg" alt="Card image cap">
-                            <div class="card-body">
-                                <a href="#" class="card-link" data-toggle="modal" data-target=".bd-example-modal-lg">See
-                                    Details</a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col">
+                    <h3>Top Rated</h3>
                 </div>
+            </div>
+            <hr>
+            <div class="row" id="top_rated">
             </div>
         </div>
 
@@ -165,17 +153,8 @@
             aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Movie title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
                     <div class="modal-body">
-                        <p>Description</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">More</button>
+                        ...
                     </div>
                 </div>
             </div>
@@ -196,7 +175,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
-    <script src="./app.js"></script>
+    <script src="./src/script/data/home.js"></script>
 </body>
 
 </html>

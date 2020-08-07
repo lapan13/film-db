@@ -12,10 +12,6 @@ $(document).ready(() => {
         success: (result) => {
             let movie = result.results;
             $.each(movie, (i, data) => {
-                //Array of Year
-                let arrYear = [];
-                arrYear.push(data.first_air_date);
-                let year = arrYear.toString().substr(0, 4);
                 $('#movie-list').append(`
                     <div class="col-md-2 mb-4">
                         <div class="card bg-warning ">
