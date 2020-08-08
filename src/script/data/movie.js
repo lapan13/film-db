@@ -89,7 +89,8 @@ $('#movie-list').on('click', '.see-detail', function () {
                     </div>
                     <div class="container-fluid">
                         <div class="row float-right">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary mr-2" data-dismiss="modal">Close</button>
+                            <a class="btn btn-primary" href="` + detail.homepage + `" role="button" id="homepage">Go to Homepage</a>
                         </div>
                     </div>
                 `);
